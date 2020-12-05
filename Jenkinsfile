@@ -3,20 +3,21 @@ pipeline {
     stages{
       stage("Docker Build"){
         steps{
-           last_started = env.STAGE_NAME
+          // script {
+           //last_started = env.STAGE_NAME
           sh "docker build -t docker ."   
         }  
       }
       stage("Run Docker image"){
         steps{
-           last_started = env.STAGE_NAME
+           //last_started = env.STAGE_NAME
           sh "docker run --name nginx -itd -p 8088:80 docker:latest"   
         }  
       }  
       stage("Pushing to docker hub"){
         steps{
           withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'userId')]) {
-             last_started = env.STAGE_NAME
+            // last_started = env.STAGE_NAME
             sh 'docker login -u ${userId} -p ${pass}'
             sh "docker commit nginx revathismart/docker:latest"
             sh "docker push revathismart/docker:latest"   
@@ -30,7 +31,7 @@ pipeline {
     }
     failure {
        //echo "Error caught${env.err}"
-       echo "Build failed at $last_started"
+      // echo "Build failed at $last_started"
        echo "Failed stage: ${env.FAILED_STAGE}"
        echo "Error message: ${env.FAILED_MESSAGE}"
     }  

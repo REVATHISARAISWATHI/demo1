@@ -1,4 +1,4 @@
-def stage(String name, Closure cl) {
+/*def stage(String name, Closure cl) {
     echo "Stage: ${name}"
     try {
         cl()
@@ -11,7 +11,7 @@ def stage(String name, Closure cl) {
             env.FAILED_MESSAGE = e.getMessage()
         }
     }
-}
+}*/
 
 pipeline {
   agent any 
@@ -41,7 +41,9 @@ pipeline {
       }
    }
   post {
-   
+    success {
+        echo 'Successfully completed '    
+    }
     failure {
        //echo "Error caught${env.err}"
       // echo "Build failed at $last_started"

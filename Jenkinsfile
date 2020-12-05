@@ -1,3 +1,18 @@
+def stage(String name, Closure cl) {
+    echo "Stage: ${name}"
+    try {
+        cl()
+    } catch (Exception e) {
+        // I needed to save failed stage and message for parent pipeline job
+        // so I saved them in environment variables, otherwise it can be saved
+        // in global variables
+        if (!env.FAILED_STAGE) {
+            env.FAILED_STAGE = name
+            env.FAILED_MESSAGE = e.getMessage()
+        }
+    }
+}
+
 pipeline {
   agent any 
     stages{

@@ -50,7 +50,7 @@ pipeline {
         echo 'Successfully completed '    
     }
     failure {
-      echo "Error caught${env.err}"
+      //echo "Error caught${env.err}"
        echo "Build failed at $last_started"
        //echo "Failed stage: ${env.FAILED_STAGE}"
        //echo "Error message: ${env.FAILED_MESSAGE}"

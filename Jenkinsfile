@@ -23,6 +23,7 @@ pipeline {
           sh "docker build -t docker ."   
         }  
       }
+      }
       stage("Run Docker image"){
         steps{
             script {
